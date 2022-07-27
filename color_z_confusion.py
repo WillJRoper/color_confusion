@@ -14,8 +14,8 @@ cols = [("Webb.NIRCAM.F150W", "Webb.NIRCAM.F200W"),
         ("Webb.NIRCAM.F200W", "Webb.NIRCAM.F277W"),
         ("Webb.NIRCAM.F277W", "Webb.NIRCAM.F356W"),
         ("Webb.NIRCAM.F356W", "Webb.NIRCAM.F444W"),
-        ("Webb.NIRCAM.F410W", "Webb.NIRCAM.F444W"),
-        ("Webb.NIRCAM.F430W", "Webb.NIRCAM.F444W"),
+        ("Webb.NIRCAM.F410M", "Webb.NIRCAM.F444W"),
+        ("Webb.NIRCAM.F430M", "Webb.NIRCAM.F444W"),
         ("Webb.NIRCAM.F444W", "Webb.MIRI.F560W"),
         ("Webb.MIRI.F560W", "Webb.MIRI.F770W")]
 
@@ -68,7 +68,7 @@ for ax, (c1, c2) in zip(axes, cols):
     XX, YY = np.meshgrid(bin_col, bin_col)
 
     # Compute residual
-    resi = XX - YY
+    resi = XX - YY / np.std(col)
 
     print(np.min(resi), np.max(resi))
 
@@ -77,6 +77,6 @@ for ax, (c1, c2) in zip(axes, cols):
 
 
 cbar = fig.colorbar(im, cax)
-cbar.set_label(r"$A-B(z_{x}) - A-B(z_{y}) $")
+cbar.set_label(r"$A-B(z_{x}) - A-B(z_{y}) / \sigma_{A-B}$")
 
 fig.savefig("color_confusion.png", bbox_inches="tight", dpi=300)
