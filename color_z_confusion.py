@@ -58,7 +58,7 @@ for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
     XX, YY = np.meshgrid(bin_col, bin_col)
 
     # Compute residual
-    resi = np.abs(XX - YY) / XX
+    resi = np.abs((XX - YY) / XX)
 
     print(np.min(resi), np.max(resi))
 
