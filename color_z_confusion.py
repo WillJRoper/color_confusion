@@ -1,9 +1,9 @@
 import h5py
 import numpy as np
+from scipy.stats import binned_statistic
 import matplotlib.pyplot as plt
 from matplotlib.colors import TwoSlopeNorm
 import matplotlib.gridspec as gridspec
-import cmasher as cmr
 
 
 # Open file
@@ -20,7 +20,8 @@ cols = [("Webb.NIRCAM.F150W", "Webb.NIRCAM.F200W"),
         ("Webb.MIRI.F560W", "Webb.MIRI.F770W")]
 
 # Load redshifts
-zs = hdf["z"][...]
+gal_zs = hdf["z"][...]
+zs = np.arange(4.5, 15.6, 0.1)
 
 print(zs)
 
@@ -53,16 +54,18 @@ for ax, (c1, c2) in zip(axes, cols):
     print(c1, "-", c2)
 
     # Get fluxes
-    f1 = hdf[c1][::10]
-    f2 = hdf[c2][::10]
+    f1 = hdf[c1][...]
+    f2 = hdf[c2][...]
 
     # Get color
     col = 2.5 * np.log10(f1 / f2)
 
+    bin_col = binned_statistic(gal_zs, col, statistic="median", bins=zs)
+
     print(col.shape)
 
     # Compute grid
-    XX, YY = np.meshgrid(col, col)
+    XX, YY = np.meshgrid(bin_col, bin_col)
 
     # Compute residual
     resi = XX - YY
@@ -70,7 +73,7 @@ for ax, (c1, c2) in zip(axes, cols):
     print(np.min(resi), np.max(resi))
 
     # Plot heat map
-    im = ax.imshow(resi, extent=extent, cmap=cmr.seaweed, norm=norm)
+    im = ax.imshow(resi, extent=extent, cmap="coolwarm", norm=norm)
 
 
 cbar = fig.colorbar(im, cax)
