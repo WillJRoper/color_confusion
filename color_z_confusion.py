@@ -38,7 +38,7 @@ cax = (fig.add_subplot(gs[-1]))
 
 # Define plotting parameters
 extent = [np.min(zs), np.max(zs), np.min(zs), np.max(zs)]
-norm = LogNorm(vmin=10**-6, vmax=1, clip=True)
+norm = LogNorm(vmin=0.1, vmax=100, clip=True)
 
 # Loop over colors
 for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
@@ -58,7 +58,7 @@ for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
     XX, YY = np.meshgrid(bin_col, bin_col)
 
     # Compute residual
-    resi = np.abs((XX - YY))
+    resi = np.abs((XX - YY) / XX) * 100
 
     print(np.min(resi), np.max(resi))
 
@@ -76,6 +76,6 @@ for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
                        labelright=False)
 
 cbar = fig.colorbar(im, cax)
-cbar.set_label(r"$|A-B(z_{x}) - A-B(z_{y})|$")
+cbar.set_label(r"$|A-B(z_{x}) - A-B(z_{y}) / A-B(z_{x})| (%)$")
 
 fig.savefig("color_confusion.png", bbox_inches="tight", dpi=300)
