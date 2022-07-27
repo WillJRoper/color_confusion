@@ -75,7 +75,7 @@ for cax, ax, (c1, c2) in zip(axes, caxes, cols):
     # Plot heat map
     im = ax.imshow(resi, extent=extent, cmap="coolwarm", norm=norm)
 
-    cbar = fig.colorbar(im, cax, oreintation="horizontal")
+    cbar = fig.colorbar(im, cax, orientation="horizontal")
     cbar.set_label(r"$A-B(z_{x}) - A-B(z_{y})$")
 
 fig.savefig("color_confusion.png", bbox_inches="tight", dpi=300)
