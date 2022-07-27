@@ -39,7 +39,7 @@ for i in range(ncols):
 
 # Define plotting parameters
 extent = [np.min(zs), np.max(zs), np.min(zs), np.max(zs)]
-norm = LogNorm(vmin=0, vmax=1)
+norm = LogNorm(vmin=0.0001, vmax=1)
 
 # Loop over colors
 for (i, ax), cax, (c1, c2) in zip(enumerate(axes), caxes, cols):
