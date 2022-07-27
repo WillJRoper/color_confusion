@@ -76,6 +76,6 @@ for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
                        labelright=False)
 
 cbar = fig.colorbar(im, cax)
-cbar.set_label(r"$|A-B(z_{x}) - A-B(z_{y}) / A-B(z_{x})| (%)$")
+cbar.set_label(r"$|A-B(z_{x}) - A-B(z_{y}) / A-B(z_{x})| (\%)$")
 
 fig.savefig("color_confusion.png", bbox_inches="tight", dpi=300)
