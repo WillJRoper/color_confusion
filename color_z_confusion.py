@@ -27,7 +27,7 @@ print(zs)
 
 # Define plot
 ncols = len(cols)
-fig = plt.figure(figsize=(3.5, ncols * 3.5))
+fig = plt.figure(figsize=(ncols * 3.5, 3.5))
 gs = gridspec.GridSpec(nrows=2, ncols=ncols,
                        height_ratios=[1, 20])
 gs.update(wspace=0.0, hspace=0.0)
@@ -35,9 +35,6 @@ axes = []
 caxes = []
 for i in range(ncols):
     axes.append(fig.add_subplot(gs[0, i]))
-    if i > 0:
-        axes[i].tick_params("y", left=False, right=False, labelleft=False,
-                            labelright=False)
     axes[i].set_ylim(np.min(zs), np.max(zs))
     axes[i].set_xlim(np.min(zs), np.max(zs))
     axes[i].set_xlabel("$z$")
@@ -45,6 +42,10 @@ for i in range(ncols):
         axes[i].set_ylabel("$z$")
 
     caxes.append(fig.add_subplot(gs[1, i]))
+
+    if i > 0:
+        axes[i].tick_params("y", left=False, right=False, labelleft=False,
+                            labelright=False)
 
 # Define plotting parameters
 extent = [np.min(zs), np.max(zs), np.min(zs), np.max(zs)]
