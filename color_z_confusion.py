@@ -28,12 +28,13 @@ print(zs)
 # Define plot
 ncols = len(cols)
 fig = plt.figure()
-gs = gridspec.GridSpec(nrows=1, ncols=ncols + 1,
-                       width_ratios=[20, ] * ncols + [2, ])
+gs = gridspec.GridSpec(nrows=2, ncols=ncols,
+                       height_ratios=[1, 20])
 gs.update(wspace=0.0, hspace=0.0)
 axes = []
+caxes = []
 for i in range(ncols):
-    axes.append(fig.add_subplot(gs[i]))
+    axes.append(fig.add_subplot(gs[1, i]))
     if i > 0:
         axes[i].tick_params("y", left=False, right=False, labelleft=False,
                             labelright=False)
@@ -43,14 +44,14 @@ for i in range(ncols):
     if i == 0:
         axes[i].set_ylabel("$z$")
 
-cax = fig.add_subplot(gs[-1])
+    caxes = fig.add_subplot(gs[0, i])
 
 # Define plotting parameters
-norm = TwoSlopeNorm(vmin=-12, vcenter=0, vmax=12)
+norm = TwoSlopeNorm(vcenter=0)
 extent = [np.min(zs), np.max(zs), np.min(zs), np.max(zs)]
 
 # Loop over colors
-for ax, (c1, c2) in zip(axes, cols):
+for cax, ax, (c1, c2) in zip(axes, caxes, cols):
 
     print(c1, "-", c2)
 
@@ -74,8 +75,7 @@ for ax, (c1, c2) in zip(axes, cols):
     # Plot heat map
     im = ax.imshow(resi, extent=extent, cmap="coolwarm", norm=norm)
 
-
-cbar = fig.colorbar(im, cax)
-cbar.set_label(r"$A-B(z_{x}) - A-B(z_{y})$")
+    cbar = fig.colorbar(im, cax, oreintation="horizontal")
+    cbar.set_label(r"$A-B(z_{x}) - A-B(z_{y})$")
 
 fig.savefig("color_confusion.png", bbox_inches="tight", dpi=300)
