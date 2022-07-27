@@ -32,7 +32,6 @@ gs = gridspec.GridSpec(nrows=1, ncols=ncols + 1,
                        width_ratios=[20, ] * ncols + [1, ])
 gs.update(wspace=0.0, hspace=0.0)
 axes = []
-cax = fig.add_subplot(gs[-1])
 for i in range(ncols):
     axes.append(fig.add_subplot(gs[i]))
     if i > 0:
@@ -43,6 +42,8 @@ for i in range(ncols):
     axes[i].set_xlabel("$z$")
     if i == 0:
         axes[i].set_ylabel("$z$")
+
+cax = fig.add_subplot(gs[-1])
 
 # Define plotting parameters
 norm = TwoSlopeNorm(vmin=-2, vcenter=0, vmax=2)
@@ -68,7 +69,7 @@ for ax, (c1, c2) in zip(axes, cols):
     XX, YY = np.meshgrid(bin_col, bin_col)
 
     # Compute residual
-    resi = XX - YY / np.std(col)
+    resi = XX - YY / np.std(bin_col)
 
     print(np.min(resi), np.max(resi))
 
