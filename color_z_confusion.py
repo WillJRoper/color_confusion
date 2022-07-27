@@ -53,8 +53,8 @@ for ax, (c1, c2) in zip(axes, cols):
     print(c1, "-", c2)
 
     # Get fluxes
-    f1 = hdf[c1][::2]
-    f2 = hdf[c2][::2]
+    f1 = hdf[c1][::4]
+    f2 = hdf[c2][::4]
 
     # Get color
     col = 2.5 * np.log10(f1 / f2)
