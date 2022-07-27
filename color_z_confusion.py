@@ -62,11 +62,11 @@ for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
 
     print(np.min(resi), np.max(resi))
 
-    plt_resi = np.full(resi.shape, 0.0000001)
-    plt_resi[resi > 0] = resi[resi > 0]
-
     # Plot heat map
-    im = ax.imshow(resi.T, extent=extent, cmap="magma", norm=norm)
+    im = ax.imshow(resi, extent=extent, cmap="magma", norm=norm)
+
+    # Invert y axis
+    ax.invert_yaxis()
 
     # Label everything
     ax.set_title(c1.split(".")[-1] + " - " + c2.split(".")[-1])
