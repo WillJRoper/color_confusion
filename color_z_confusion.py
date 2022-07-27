@@ -44,7 +44,7 @@ for i in range(ncols):
     if i == 0:
         axes[i].set_ylabel("$z$")
 
-    caxes = fig.add_subplot(gs[0, i])
+    caxes.append(fig.add_subplot(gs[0, i]))
 
 # Define plotting parameters
 norm = TwoSlopeNorm(vcenter=0)
