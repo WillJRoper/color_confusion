@@ -2,7 +2,7 @@ import h5py
 import numpy as np
 from scipy.stats import binned_statistic
 import matplotlib.pyplot as plt
-from matplotlib.colors import TwoSlopeNorm
+from matplotlib.colors import TwoSlopeNorm, LogNorm
 import matplotlib.gridspec as gridspec
 
 
@@ -27,7 +27,7 @@ print(zs)
 
 # Define plot
 ncols = len(cols)
-fig = plt.figure(figsize=(ncols * 3.5, 3.5))
+fig = plt.figure(figsize=(ncols * 3.5, 3.75))
 gs = gridspec.GridSpec(nrows=2, ncols=ncols,
                        height_ratios=[1, 20])
 gs.update(wspace=0.0, hspace=0.0)
@@ -39,7 +39,7 @@ for i in range(ncols):
 
 # Define plotting parameters
 extent = [np.min(zs), np.max(zs), np.min(zs), np.max(zs)]
-norm = TwoSlopeNorm(vmin=-1, vcenter=0, vmax=1)
+norm = LogNorm(vmin=1, vmax=1)
 
 # Loop over colors
 for (i, ax), cax, (c1, c2) in zip(enumerate(axes), caxes, cols):
@@ -59,15 +59,15 @@ for (i, ax), cax, (c1, c2) in zip(enumerate(axes), caxes, cols):
     XX, YY = np.meshgrid(bin_col, bin_col)
 
     # Compute residual
-    resi = XX - YY
+    resi = np.abs(XX - YY)
 
     print(np.min(resi), np.max(resi))
 
     # Plot heat map
-    im = ax.imshow(resi, extent=extent, cmap="coolwarm", norm=norm)
+    im = ax.imshow(resi, extent=extent, cmap="magma", norm=norm)
 
     cbar = fig.colorbar(im, cax, orientation="horizontal")
-    cbar.set_label(r"$A-B(z_{x}) - A-B(z_{y})$")
+    cbar.set_label(r"$|A-B(z_{x}) - A-B(z_{y})|$")
 
     ax.set_xlabel("$z$")
     if i == 0:
