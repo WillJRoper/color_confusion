@@ -35,17 +35,7 @@ axes = []
 caxes = []
 for i in range(ncols):
     axes.append(fig.add_subplot(gs[0, i]))
-    axes[i].set_ylim(np.min(zs), np.max(zs))
-    axes[i].set_xlim(np.min(zs), np.max(zs))
-    axes[i].set_xlabel("$z$")
-    if i == 0:
-        axes[i].set_ylabel("$z$")
-
     caxes.append(fig.add_subplot(gs[1, i]))
-
-    if i > 0:
-        axes[i].tick_params("y", left=False, right=False, labelleft=False,
-                            labelright=False)
 
 # Define plotting parameters
 extent = [np.min(zs), np.max(zs), np.min(zs), np.max(zs)]
@@ -80,5 +70,15 @@ for cax, ax, (c1, c2) in zip(axes, caxes, cols):
 
     cbar = fig.colorbar(im, cax, orientation="horizontal")
     cbar.set_label(r"$A-B(z_{x}) - A-B(z_{y})$")
+
+for i in range(ncols):
+    axes[i].set_ylim(np.min(zs), np.max(zs))
+    axes[i].set_xlim(np.min(zs), np.max(zs))
+    axes[i].set_xlabel("$z$")
+    if i == 0:
+        axes[i].set_ylabel("$z$")
+    if i > 0:
+        axes[i].tick_params("y", left=False, right=False, labelleft=False,
+                            labelright=False)
 
 fig.savefig("color_confusion.png", bbox_inches="tight", dpi=300)
