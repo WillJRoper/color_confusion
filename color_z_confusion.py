@@ -39,6 +39,7 @@ for i in range(ncols):
 
 # Define plotting parameters
 extent = [np.min(zs), np.max(zs), np.min(zs), np.max(zs)]
+norm = TwoSlopeNorm(vmin=-1, vcenter=0, vmax=1)
 
 # Loop over colors
 for (i, ax), cax, (c1, c2) in zip(enumerate(axes), caxes, cols):
@@ -61,9 +62,6 @@ for (i, ax), cax, (c1, c2) in zip(enumerate(axes), caxes, cols):
     resi = XX - YY
 
     print(np.min(resi), np.max(resi))
-
-    # Defie norm
-    norm = TwoSlopeNorm(vmin=np.min(resi), vcenter=0, vmax=np.max(resi))
 
     # Plot heat map
     im = ax.imshow(resi, extent=extent, cmap="coolwarm", norm=norm)
