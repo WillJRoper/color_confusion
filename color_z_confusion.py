@@ -29,7 +29,7 @@ print(zs)
 ncols = len(cols)
 fig = plt.figure()
 gs = gridspec.GridSpec(nrows=1, ncols=ncols + 1,
-                       width_ratios=[20, ] * ncols + [1, ])
+                       width_ratios=[20, ] * ncols + [2, ])
 gs.update(wspace=0.0, hspace=0.0)
 axes = []
 for i in range(ncols):
@@ -46,7 +46,7 @@ for i in range(ncols):
 cax = fig.add_subplot(gs[-1])
 
 # Define plotting parameters
-norm = TwoSlopeNorm(vmin=-2, vcenter=0, vmax=2)
+norm = TwoSlopeNorm(vmin=-12, vcenter=0, vmax=12)
 extent = [np.min(zs), np.max(zs), np.min(zs), np.max(zs)]
 
 # Loop over colors
@@ -63,13 +63,11 @@ for ax, (c1, c2) in zip(axes, cols):
 
     bin_col, _, _ = binned_statistic(gal_zs, col, statistic="median", bins=zs)
 
-    print(bin_col.shape)
-
     # Compute grid
     XX, YY = np.meshgrid(bin_col, bin_col)
 
     # Compute residual
-    resi = XX - YY / np.std(bin_col)
+    resi = XX - YY
 
     print(np.min(resi), np.max(resi))
 
@@ -78,6 +76,6 @@ for ax, (c1, c2) in zip(axes, cols):
 
 
 cbar = fig.colorbar(im, cax)
-cbar.set_label(r"$A-B(z_{x}) - A-B(z_{y}) / \sigma_{A-B}$")
+cbar.set_label(r"$A-B(z_{x}) - A-B(z_{y})$")
 
 fig.savefig("color_confusion.png", bbox_inches="tight", dpi=300)
