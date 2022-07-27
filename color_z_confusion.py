@@ -62,7 +62,7 @@ for ax, (c1, c2) in zip(axes, cols):
 
     bin_col = binned_statistic(gal_zs, col, statistic="median", bins=zs)
 
-    print(col.shape)
+    print(bin_col.shape)
 
     # Compute grid
     XX, YY = np.meshgrid(bin_col, bin_col)
