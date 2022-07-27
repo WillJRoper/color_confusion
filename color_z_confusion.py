@@ -65,6 +65,8 @@ for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
     # Plot heat map
     im = ax.imshow(resi, extent=extent, cmap="magma", norm=norm)
 
+    # Label everything
+    ax.set_title(c1.split(".")[-1] + " - " + c2.split(".")[-1])
     ax.set_xlabel("$z$")
     if i == 0:
         ax.set_ylabel("$z$")
