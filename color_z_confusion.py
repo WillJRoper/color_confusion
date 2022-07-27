@@ -27,7 +27,7 @@ print(zs)
 
 # Define plot
 ncols = len(cols)
-fig = plt.figure()
+fig = plt.figure(figsize=(3.5, ncols * 3.5))
 gs = gridspec.GridSpec(nrows=2, ncols=ncols,
                        height_ratios=[1, 20])
 gs.update(wspace=0.0, hspace=0.0)
@@ -47,7 +47,6 @@ for i in range(ncols):
     caxes.append(fig.add_subplot(gs[1, i]))
 
 # Define plotting parameters
-norm = TwoSlopeNorm(vcenter=0)
 extent = [np.min(zs), np.max(zs), np.min(zs), np.max(zs)]
 
 # Loop over colors
@@ -71,6 +70,9 @@ for cax, ax, (c1, c2) in zip(axes, caxes, cols):
     resi = XX - YY
 
     print(np.min(resi), np.max(resi))
+
+    # Defie norm
+    norm = TwoSlopeNorm(vmin=np.min(resi), vcenter=0, vmax=np.max(resi))
 
     # Plot heat map
     im = ax.imshow(resi, extent=extent, cmap="coolwarm", norm=norm)
