@@ -63,7 +63,7 @@ for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
     print(np.min(resi), np.max(resi))
 
     # Plot heat map
-    im = ax.imshow(resi, extent=extent, cmap="magma", norm=norm)
+    im = ax.imshow(resi.T, extent=extent, cmap="magma", norm=norm)
 
     # Label everything
     ax.set_title(c1.split(".")[-1] + " - " + c2.split(".")[-1])
@@ -75,6 +75,6 @@ for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
                        labelright=False)
 
 cbar = fig.colorbar(im, cax)
-cbar.set_label(r"$|A-B(z_{x}) - A-B(z_{y}) / |A-B(z_{x})| (%)$")
+cbar.set_label(r"$|A-B(z_{x}) - A-B(z_{y}) / |A-B(z_{x})| (\%)$")
 
 fig.savefig("color_confusion.png", bbox_inches="tight", dpi=300)
