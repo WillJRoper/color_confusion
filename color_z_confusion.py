@@ -60,7 +60,7 @@ for ax, (c1, c2) in zip(axes, cols):
     # Get color
     col = 2.5 * np.log10(f1 / f2)
 
-    bin_col = binned_statistic(gal_zs, col, statistic="median", bins=zs)
+    bin_col, _, _ = binned_statistic(gal_zs, col, statistic="median", bins=zs)
 
     print(bin_col.shape)
 
