@@ -38,7 +38,7 @@ cax = (fig.add_subplot(gs[-1]))
 
 # Define plotting parameters
 extent = [np.min(zs), np.max(zs), np.min(zs), np.max(zs)]
-norm = LogNorm(vmin=0.0001, vmax=1, clip=True)
+norm = LogNorm(vmin=10**-6, vmax=1, clip=True)
 
 # Loop over colors
 for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
@@ -78,6 +78,6 @@ for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
                        labelright=False)
 
 cbar = fig.colorbar(im, cax)
-cbar.set_label(r"$|A-B(z_{x}) - A-B(z_{y}}|$")
+cbar.set_label(r"$|A-B(z_{x}) - A-B(z_{y})|$")
 
 fig.savefig("color_confusion.png", bbox_inches="tight", dpi=300)
