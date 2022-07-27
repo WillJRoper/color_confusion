@@ -62,7 +62,7 @@ for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
 
     print(np.min(resi), np.max(resi))
 
-    # Plot heat map
+    # Plot heat map yeaaaaaa
     im = ax.imshow(resi, extent=extent, cmap="magma",
                    norm=norm, origin="lower")
 
