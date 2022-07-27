@@ -21,7 +21,7 @@ cols = [("Webb.NIRCAM.F150W", "Webb.NIRCAM.F200W"),
 
 # Load redshifts
 gal_zs = hdf["z"][...]
-zs = np.arange(4.5, 15.6, 0.01)
+zs = np.arange(4.5, 15.6, 0.1)
 
 print(zs)
 
