@@ -58,12 +58,13 @@ for (i, ax), (c1, c2) in zip(enumerate(axes), cols):
     XX, YY = np.meshgrid(bin_col, bin_col)
 
     # Compute residual
-    resi = np.transpose(np.abs((XX - YY)))
+    resi = np.abs((XX - YY))
 
     print(np.min(resi), np.max(resi))
 
     # Plot heat map
-    im = ax.imshow(resi, extent=extent, cmap="magma", norm=norm)
+    im = ax.imshow(resi, extent=extent, cmap="magma",
+                   norm=norm, origin="lower")
 
     # Label everything
     ax.set_title(c1.split(".")[-1] + " - " + c2.split(".")[-1])
