@@ -22,6 +22,8 @@ cols = [("Webb.NIRCAM.F150W", "Webb.NIRCAM.F200W"),
 # Load redshifts
 zs = hdf["z"][...]
 
+print(zs)
+
 # Define plot
 ncols = len(cols)
 fig = plt.figure()
@@ -51,8 +53,8 @@ for ax, (c1, c2) in zip(axes, cols):
     print(c1, "-", c2)
 
     # Get fluxes
-    f1 = hdf[c1][...]
-    f2 = hdf[c2][...]
+    f1 = hdf[c1][::2]
+    f2 = hdf[c2][::2]
 
     # Get color
     col = 2.5 * np.log10(f1 / f2)
