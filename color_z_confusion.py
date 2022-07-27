@@ -34,7 +34,7 @@ gs.update(wspace=0.0, hspace=0.0)
 axes = []
 caxes = []
 for i in range(ncols):
-    axes.append(fig.add_subplot(gs[1, i]))
+    axes.append(fig.add_subplot(gs[0, i]))
     if i > 0:
         axes[i].tick_params("y", left=False, right=False, labelleft=False,
                             labelright=False)
@@ -44,7 +44,7 @@ for i in range(ncols):
     if i == 0:
         axes[i].set_ylabel("$z$")
 
-    caxes.append(fig.add_subplot(gs[0, i]))
+    caxes.append(fig.add_subplot(gs[1, i]))
 
 # Define plotting parameters
 norm = TwoSlopeNorm(vcenter=0)
